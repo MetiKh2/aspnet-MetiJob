@@ -21,7 +21,8 @@
 
   <ItemGroup>
     <Folder Include="Identity\Queries\" />
-    <Folder Include="Resume\Queries\" />
+    <Folder Include="Jobs\Commands\" />
+    <Folder Include="Jobs\MappingProfile\" />
   </ItemGroup>
 
 </Project>

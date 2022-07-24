@@ -5,6 +5,7 @@ namespace MetiJob.Application.Resume.Dtos
 {
     public class UpdateWorkExperienceResponse
     {
+        public long entityId { get; set; }
         public string? JobTitle { get; set; }
         public string? CompanyName { get; set; }
         public DateTime? StartDate { get; set; }

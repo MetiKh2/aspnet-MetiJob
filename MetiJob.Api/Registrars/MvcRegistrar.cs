@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using System.Text.Json.Serialization;
 
 namespace MetiJob.Api.Registrars
 {
@@ -11,7 +12,8 @@ namespace MetiJob.Api.Registrars
             //{
             //    config.Filters.Add(typeof(CwkSocialExceptionHandler));
             //});
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             builder.Services.AddApiVersioning(config =>
             {

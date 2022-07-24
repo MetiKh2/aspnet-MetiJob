@@ -19,6 +19,10 @@
             public const string UploadUserAvatar = "upload-user-avatar/{userId}";
             public const string UploadResume = "upload-resume/{userId}";
             public const string ToggleIsSeeableResume = "toggle-isSeeable-resume/{userId}";
+            public const string GetResumeItems = "{userId}";
+            public const string DeleteLnaguage = "delete-language/{id}";
+            public const string DeleteEducationalRecord = "delete-educational-record/{id}"; 
+            public const string DeleteWorkExperience= "delete-work-experience/{id}"; 
 
         }
     }

@@ -147,6 +147,197 @@ namespace MetiJob.DataAccess.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.Company", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Catehory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Established")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FifthBannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FifthBannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstBannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstBannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FourthBannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FourthBannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Introduced")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobBenefits")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Longitude")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondBannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondBannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdBannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdBannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WebSite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkCulture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker1_Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker1_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker1_Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker1_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker2_Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker2_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker2_Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker2_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker3_Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker3_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker3_Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Worker3_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.Job", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ContractsCategories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Educational")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsEnd")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsHot")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsMan")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobCategories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MilitaryStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("MinPrice")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("MinimumWorkExperience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NeedSkills")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("Salary")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Jobs");
+                });
+
             modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.JobCategory", b =>
                 {
                     b.Property<long>("Id")
@@ -435,6 +626,17 @@ namespace MetiJob.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.Job", b =>
+                {
+                    b.HasOne("MetiJob.Domain.Aggregates.JobsAggregates.Company", "Company")
+                        .WithMany("Jobs")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("MetiJob.Domain.Aggregates.ResumeAggregates.EducationalRecord", b =>
                 {
                     b.HasOne("MetiJob.Domain.Aggregates.IdentityAggregates.ApplicationUser", "User")
@@ -526,6 +728,11 @@ namespace MetiJob.DataAccess.Migrations
                     b.Navigation("Languages");
 
                     b.Navigation("WorkExperiences");
+                });
+
+            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.Company", b =>
+                {
+                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

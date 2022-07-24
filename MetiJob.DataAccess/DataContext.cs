@@ -17,9 +17,16 @@ namespace MetiJob.DataAccess
         public DbSet<Domain.Aggregates.ResumeAggregates.Language> Languages{ get; set; }
         public DbSet<WorkExperience> WorkExperiences{ get; set; }
         public DbSet<EducationalRecord> EducationalRecords { get; set; }
+        public DbSet<Job> Jobs{ get; set; }
+        public DbSet<Company> Companies{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Domain.Aggregates.ResumeAggregates.Language>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<WorkExperience>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<EducationalRecord>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Job>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Company>().HasQueryFilter(p => !p.IsRemoved);
             builder.ApplyAllConfigurations();
             base.OnModelCreating(builder);
         }

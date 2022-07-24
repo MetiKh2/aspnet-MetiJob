@@ -7,6 +7,7 @@ using MetiJob.Application.Resume.Dtos;
 using MetiJob.Domain.Aggregates.IdentityAggregates;
 using MetiJob.Domain.Aggregates.ResumeAggregates;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetiJob.Application.Resume.Commands.UpdateEducationalRecord
 {
@@ -37,7 +38,26 @@ namespace MetiJob.Application.Resume.Commands.UpdateEducationalRecord
                     result.AddError(ErrorCode.ValidationError, "EducationalRecords not found");
                     return result;
                 }
-                foreach (var work in request.EducationalRecords)
+                if (await _educationalRecordRepository.GetQuery().AnyAsync(p => p.Id == request.EducationalRecords[0].EntityId))
+                {
+                    if (request.EducationalRecords.Count == 1)
+                    {
+                        var educationalRecord = await _educationalRecordRepository.GetEntityById(request.EducationalRecords[0].EntityId);
+                        educationalRecord.EndDate = request.EducationalRecords[0].EndDate;
+                        educationalRecord.StartDate = request.EducationalRecords[0].StartDate;
+                        educationalRecord.IsBusy = request.EducationalRecords[0].IsBusy;
+                        educationalRecord.CollegeName = request.EducationalRecords[0].CollegeName;
+                        educationalRecord.Major= request.EducationalRecords[0].Major;
+                        educationalRecord.Description = request.EducationalRecords[0].Description;
+                        educationalRecord.Grade = request.EducationalRecords[0].Grade;
+                        educationalRecord.LastUpdate = DateTime.Now;
+                        _educationalRecordRepository.EditEntity(educationalRecord);
+
+                    }
+                    else result.AddError(ErrorCode.ValidationError, "educationalRecord not valid");
+                }
+                else
+                    foreach (var work in request.EducationalRecords)
                 {
                     var newEducationalRecord = _mapper.Map<EducationalRecord>(work);
                     newEducationalRecord.UserId = request.UserId;

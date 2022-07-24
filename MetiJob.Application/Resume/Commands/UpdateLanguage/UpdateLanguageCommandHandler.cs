@@ -8,6 +8,7 @@ using MetiJob.Application.Resume.Dtos;
 using MetiJob.Domain.Aggregates.IdentityAggregates;
 using MetiJob.Domain.Aggregates.ResumeAggregates;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetiJob.Application.Resume.Commands.UpdateLanguage
 {
@@ -38,7 +39,21 @@ namespace MetiJob.Application.Resume.Commands.UpdateLanguage
                     result.AddError(ErrorCode.ValidationError, "WorkExperiences not found");
                     return result;
                 }
-                foreach (var work in request.Languages)
+                if (await _languageRepository.GetQuery().AnyAsync(p => p.Id == request.Languages[0].EntityId))
+                {
+                    if (request.Languages.Count == 1)
+                    {
+                        var language = await _languageRepository.GetEntityById(request.Languages[0].EntityId);
+                        language.LevelLanguage = request.Languages[0].LevelLanguage;
+                        language.LanguageName= request.Languages[0].LanguageName;
+                        language.LastUpdate = DateTime.Now;
+                        _languageRepository.EditEntity(language);
+
+                    }
+                    else result.AddError(ErrorCode.ValidationError, "educationalRecord not valid");
+                }
+                else
+                    foreach (var work in request.Languages)
                 {
                     var newLanguage = _mapper.Map<Language>(work);
                     newLanguage.UserId = request.UserId;

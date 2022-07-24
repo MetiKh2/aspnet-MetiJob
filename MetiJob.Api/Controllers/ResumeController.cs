@@ -2,6 +2,9 @@
 using MetiJob.Api.FileUtils;
 using MetiJob.Api.Filters;
 using MetiJob.Api.ImageUtils;
+using MetiJob.Application.Resume.Commands.DeleteEducationalRecord;
+using MetiJob.Application.Resume.Commands.DeleteLanguage;
+using MetiJob.Application.Resume.Commands.DeleteWorkExperience;
 using MetiJob.Application.Resume.Commands.UpdateCareerJob;
 using MetiJob.Application.Resume.Commands.UpdateEducationalRecord;
 using MetiJob.Application.Resume.Commands.UpdateIsSeeableResume;
@@ -12,6 +15,7 @@ using MetiJob.Application.Resume.Commands.UpdateUserAvatar;
 using MetiJob.Application.Resume.Commands.UpdateUserResumeFile;
 using MetiJob.Application.Resume.Commands.UpdateWorkExperience;
 using MetiJob.Application.Resume.Dtos;
+using MetiJob.Application.Resume.Queries.GetResume;
 
 namespace MetiJob.Api.Controllers
 {
@@ -48,12 +52,13 @@ namespace MetiJob.Api.Controllers
             command.UserId = request.UserId;
             command.WorkExperiences = request.Dto.Select(p => new UpdateWorkExperienceResponse
             {
+               entityId=p.entityId,
                 CompanyName = p.CompanyName,
                 Description = p.Description,
-                EndDate = p.EndDate,
+                EndDate = p.EndDate != null ? new DateTime(year: p.EndDate.Value, 1, 1) : null,
                 IsBusy = p.IsBusy,
                 JobTitle = p.JobTitle,
-                StartDate = p.StartDate
+                StartDate = p.StartDate != null ? new DateTime(year: p.StartDate.Value, 1, 1) : null
             }).ToList();
             var result = await _mediator.Send(command, cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
@@ -67,13 +72,14 @@ namespace MetiJob.Api.Controllers
             command.UserId = request.UserId;
             command.EducationalRecords = request.Dto.Select(p => new UpdateEducationalRecordResponse
             {
+                EntityId=p.EntityId,
                 CollegeName = p.CollegeName,
                 Description = p.Description,
-                EndDate = p.EndDate,
                 Grade = p.Grade,
                 IsBusy = p.IsBusy,
                 Major = p.Major,
-                StartDate = p.StartDate
+                EndDate = p.EndDate != null ? new DateTime(year: p.EndDate.Value, 1, 1) : null,
+                StartDate = p.StartDate != null ? new DateTime(year: p.StartDate.Value, 1, 1) : null
             }).ToList();
             var result = await _mediator.Send(command, cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
@@ -85,10 +91,11 @@ namespace MetiJob.Api.Controllers
         {
             var command = new UpdateLanguageCommand();
             command.UserId = request.UserId;
-            command.Languages= request.Dto.Select(p => new UpdateLanguageResponse
-            {   
-                LanguageName=p.LanguageName,
-                LevelLanguage=p.LevelLanguage
+            command.Languages = request.Dto.Select(p => new UpdateLanguageResponse
+            {
+                EntityId=p.EntityId,
+                LanguageName = p.LanguageName,
+                LevelLanguage = p.LevelLanguage
             }).ToList();
             var result = await _mediator.Send(command, cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
@@ -98,7 +105,7 @@ namespace MetiJob.Api.Controllers
         [ValidateModel]
         public async Task<IActionResult> UpdateCareerJob([FromBody] UpdateCareerJob request, CancellationToken cancellationToken)
         {
-            var command = _mapper.Map<UpdateCareerJobCommand>(request) ;
+            var command = _mapper.Map<UpdateCareerJobCommand>(request);
             var result = await _mediator.Send(command, cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
             return Ok(result.Payload);
@@ -131,5 +138,37 @@ namespace MetiJob.Api.Controllers
             if (!res) return NotFound();
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetResume([FromQuery] GetResumeItemsRequest request, CancellationToken cancellationToken)
+        {
+            var command = _mapper.Map<GetResumeQuery>(request);
+            var result = await _mediator.Send(command, cancellationToken);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            return Ok(result.Payload);
+        }
+        [HttpDelete(ApiRoutes.Resume.DeleteLnaguage)]
+        public async Task<IActionResult> DeleteLanguage([FromRoute] long id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new DeleteLanguageCommand(id), cancellationToken);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            return Ok(result.Payload);
+        }
+        [HttpDelete(ApiRoutes.Resume.DeleteEducationalRecord)]
+        public async Task<IActionResult> DeleteEducationalRecord([FromRoute] long id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new DeleteEducationalRecordCommand(id), cancellationToken);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            return Ok(result.Payload);
+        }
+        [HttpDelete(ApiRoutes.Resume.DeleteWorkExperience)]
+        public async Task<IActionResult> DeleteWorkExperience([FromRoute] long id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new DeleteWorkExperienceCommand(id), cancellationToken);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            return Ok(result.Payload);
+        }
+
+
     }
 }

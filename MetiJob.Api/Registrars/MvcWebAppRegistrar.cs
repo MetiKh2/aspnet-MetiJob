@@ -17,9 +17,9 @@ namespace MetiJob.Api.Registrars
                         description.ApiVersion.ToString());
                 }
             });
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
-
+            app.UseCors("MetiJob");
             app.UseAuthentication();
             app.UseAuthorization();
 

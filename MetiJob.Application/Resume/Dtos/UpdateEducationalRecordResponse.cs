@@ -6,6 +6,7 @@ namespace MetiJob.Application.Resume.Dtos
 {
     public class UpdateEducationalRecordResponse
     {
+        public long EntityId { get; set; }
         public string? Major { get; set; }
         public string? CollegeName { get; set; }
         public Grade Grade { get; set; }

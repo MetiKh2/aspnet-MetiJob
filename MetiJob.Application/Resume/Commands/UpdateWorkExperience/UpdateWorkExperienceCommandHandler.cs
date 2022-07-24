@@ -9,6 +9,7 @@ using MetiJob.Application.Resume.Dtos;
 using MetiJob.Domain.Aggregates.IdentityAggregates;
 using MetiJob.Domain.Aggregates.ResumeAggregates;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetiJob.Application.Resume.Commands.UpdateWorkExperience
 {
@@ -39,6 +40,24 @@ namespace MetiJob.Application.Resume.Commands.UpdateWorkExperience
                     result.AddError(ErrorCode.ValidationError, "WorkExperiences not found");
                     return result;
                 }
+                if (await _workExperineceRepository.GetQuery().AnyAsync(p => p.Id == request.WorkExperiences[0].entityId))
+                {
+                    if (request.WorkExperiences.Count == 1)
+                    {
+                        var workExperince =await _workExperineceRepository.GetEntityById(request.WorkExperiences[0].entityId);
+                        workExperince.EndDate = request.WorkExperiences[0].EndDate;
+                        workExperince.StartDate= request.WorkExperiences[0].StartDate;
+                        workExperince.IsBusy = request.WorkExperiences[0].IsBusy;
+                        workExperince.CompanyName = request.WorkExperiences[0].CompanyName;
+                        workExperince.JobTitle = request.WorkExperiences[0].JobTitle;
+                        workExperince.Description = request.WorkExperiences[0].Description;
+                        workExperince.LastUpdate = DateTime.Now;
+                        _workExperineceRepository.EditEntity(workExperince);
+                        
+                    }
+                    else result.AddError(ErrorCode.ValidationError, "WorkExperiences not valid");
+                }
+                else
                 foreach (var work in request.WorkExperiences)
                 {
                     var newWorkExperince = _mapper.Map<WorkExperience>(work);

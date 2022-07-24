@@ -39,5 +39,9 @@ public class IdentityRegistrar : IWebApplicationBuilderRegistrar
                 jwt.Audience = jwtSettings.Audiences[0];
                 jwt.ClaimsIssuer = jwtSettings.Issuer;
             });
+        builder.Services.AddCors(o => o.AddPolicy("MetiJob", builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }));
     }
 }
