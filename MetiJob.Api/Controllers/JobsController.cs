@@ -11,6 +11,7 @@ namespace MetiJob.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> FilterJobs([FromQuery]FilterJobsRequest request, CancellationToken cancellationToken)
         {
+		request.TakeEntity=3;	
             var result = await _mediator.Send(new FilterJobsQuery(_mapper.Map<FilterJobsResponse>(request)), cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
             return Ok(result.Payload);

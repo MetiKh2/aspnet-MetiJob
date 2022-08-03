@@ -25,5 +25,9 @@
             public const string DeleteWorkExperience= "delete-work-experience/{id}"; 
 
         }
+        public class Companies
+        {
+            public const string Top50 = "top-50";
+        }
     }
 }

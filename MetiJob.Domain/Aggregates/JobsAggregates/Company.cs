@@ -9,7 +9,8 @@ namespace MetiJob.Domain.Aggregates.JobsAggregates
         public string? Logo { get; set; }
         public string? Name { get; set; }
         public int Established { get; set; }
-        public string? Catehory { get; set; }
+        public string? Category { get; set; }
+        public double? Rating { get; set; }
         public string? WebSite { get; set; }
         public int? Longitude { get; set; }
         public int? Latitude { get; set; }
