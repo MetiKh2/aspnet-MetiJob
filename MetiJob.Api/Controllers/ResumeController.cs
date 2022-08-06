@@ -16,9 +16,11 @@ using MetiJob.Application.Resume.Commands.UpdateUserResumeFile;
 using MetiJob.Application.Resume.Commands.UpdateWorkExperience;
 using MetiJob.Application.Resume.Dtos;
 using MetiJob.Application.Resume.Queries.GetResume;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MetiJob.Api.Controllers
 {
+    [Authorize]
     public class ResumeController : BaseController
     {
         private readonly IWebHostEnvironment _environment;

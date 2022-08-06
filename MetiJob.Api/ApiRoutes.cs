@@ -7,6 +7,9 @@
         {
             public const string RegisterUser = "register";
             public const string LoginUser = "login";
+            public const string ForgotPassword = "forget-pass/{email}";
+            public const string ResetPassword = "reset-pass";
+            public const string ChangePassword = "change-pass/{email}";
         }
         public static class Resume
         {

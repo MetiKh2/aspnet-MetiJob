@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MetiJob.Api.MappingProfile.Resume;
+using MetiJob.Api.Utils;
 using MetiJob.Application.GenericRepository;
 using MetiJob.Application.Identity.Commands.RegisterUser;
 using MetiJob.Application.Services;
@@ -14,6 +15,7 @@ namespace MetiJob.Api.Registrars
             builder.Services.AddMediatR(typeof(RegisterUserCommand));
             builder.Services.AddScoped<IdentityService>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IEmailService, EmailService>();
         }
     }
 }
