@@ -8,6 +8,7 @@ namespace MetiJob.Application.Jobs.Dtos
     {
         public string? Title { get; set; }
         public string? CompanyName { get; set; }
+        public long? CompanyId{ get; set; }
         public string? State { get; set; }
         public string? ContractsCategories { get; set; }
         public string? JobCategory { get; set; }

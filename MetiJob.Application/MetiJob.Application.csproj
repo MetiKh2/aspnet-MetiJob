@@ -19,9 +19,4 @@
     <ProjectReference Include="..\MetiJob.Domain\MetiJob.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Jobs\Commands\" />
-    <Folder Include="Jobs\MappingProfile\" />
-  </ItemGroup>
-
 </Project>

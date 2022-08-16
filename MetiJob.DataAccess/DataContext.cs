@@ -19,6 +19,7 @@ namespace MetiJob.DataAccess
         public DbSet<EducationalRecord> EducationalRecords { get; set; }
         public DbSet<Job> Jobs{ get; set; }
         public DbSet<Company> Companies{ get; set; }
+        public DbSet<UserJobRequest> UserJobRequests{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

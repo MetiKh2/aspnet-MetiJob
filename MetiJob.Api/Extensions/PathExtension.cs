@@ -7,7 +7,9 @@
         public const string UserAvatarOriginServer = "wwwroot/UserAvatars/Origin/";
         public const string UserAvatarThumbServer = "wwwroot/UserAvatars/Thumb/";
 
-        public const string UserResumeOriginServer = "UserResumes/Origin/";
-        public const string UserResumeThumbServer = "UserResumes/Thumb/";
+        public const string UserResumeOriginServer = "wwwroot/UserResumes/Origin/";
+
+
+        public const string UserResumeSendedToJobOriginServer = "wwwroot/SendedUserResumes/Origin/";
     }
 }

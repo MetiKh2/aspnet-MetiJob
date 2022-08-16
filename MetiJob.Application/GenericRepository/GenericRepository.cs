@@ -62,6 +62,12 @@ namespace MetiJob.Application.GenericRepository
             return _dBSet.AsQueryable();
         }
 
+        public async Task<bool> IsExist(long entityId)
+        {
+            if (await _dBSet.AnyAsync(p => p.Id == entityId)) return true;
+            return false;
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

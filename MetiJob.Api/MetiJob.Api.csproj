@@ -34,8 +34,4 @@
     <Folder Include="UserAvatars\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\0c2d94c5160c435c8f081c27870c636d.jpg" />
-  </ItemGroup>
-
 </Project>

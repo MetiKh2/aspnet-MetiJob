@@ -24,6 +24,7 @@ namespace MetiJob.Application.Jobs.Queries.FilterJobs
             {
                 var query = _jobRepository.GetQuery().Include(p=>p.Company).OrderByDescending(p => p.CreatedAt).AsQueryable();
                 if (request.Dto.IsHot) query = query.Where(p => p.IsHot).AsQueryable();
+                if (request.Dto.CompanyId!=null&& request.Dto.CompanyId >=1) query = query.Where(p => p.CompanyId==request.Dto.CompanyId).AsQueryable();
                 if (!string.IsNullOrEmpty(request.Dto.Title)) query = query.Where(p => p.Title.Contains(request.Dto.Title)||p.Company.Name.Contains(request.Dto.Title)).AsQueryable();
                 if (!string.IsNullOrEmpty(request.Dto.State)) query = query.Where(p =>p.Location.Contains(request.Dto.State)).AsQueryable();
                 if (!string.IsNullOrEmpty(request.Dto.ContractsCategories)) query = query.Where(p => p.ContractsCategories.Contains(request.Dto.ContractsCategories)).AsQueryable();

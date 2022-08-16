@@ -131,10 +131,10 @@ namespace MetiJob.Api.Controllers
                 return BadRequest();
             var res = await _mediator.Send(new UpdateUserResumeFileCommand(fileName, userId));
             if (!res) return BadRequest();
-            return Ok(new { imageName = fileName });
+            return Ok(new { fileName = fileName });
         }
         [HttpPost(ApiRoutes.Resume.ToggleIsSeeableResume)]
-        public async Task<IActionResult> UploadResume([FromRoute] string userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> ToggleIsSeeableResume([FromRoute] string userId, CancellationToken cancellationToken)
         {
             var res = await _mediator.Send(new UpdateIsSeeableResumeCommand(userId));
             if (!res) return NotFound();
@@ -171,6 +171,8 @@ namespace MetiJob.Api.Controllers
             return Ok(result.Payload);
         }
 
+
+       
 
     }
 }

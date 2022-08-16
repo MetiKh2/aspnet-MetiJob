@@ -11,6 +11,10 @@
             public const string ResetPassword = "reset-pass";
             public const string ChangePassword = "change-pass/{email}";
         }
+        public static class Jobs
+        {
+            public const string SendResume= "send-resume";
+        }
         public static class Resume
         {
             public const string UpdatePersonalInformation = "update-personal-information";

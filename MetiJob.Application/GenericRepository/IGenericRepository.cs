@@ -6,6 +6,7 @@ namespace MetiJob.Application.GenericRepository
 {
     public interface IGenericRepository<TEntity> where TEntity : BasicAggregate
     {
+        Task<bool> IsExist(long entityId);
         Task AddEntity(TEntity entity);
         void EditEntity(TEntity entity);
         Task<TEntity> GetEntityById(long entityId);
