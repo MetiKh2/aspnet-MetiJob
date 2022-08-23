@@ -3,6 +3,7 @@ namespace MetiJob.Application.Jobs.Dtos
 {
     public class GetJobResponse
     {
+   public long Id { get; set; }
         public string Title { get; set; }
         public long CompanyId { get; set; }
         public string? JobCategories { get; set; }

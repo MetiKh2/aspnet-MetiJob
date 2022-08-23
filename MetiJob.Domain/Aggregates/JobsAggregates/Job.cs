@@ -24,6 +24,7 @@ namespace MetiJob.Domain.Aggregates.JobsAggregates
         public bool IsHot { get; set; } = false;
         public bool IsEnd { get; set; } = false;
 
+        public ICollection<UserJobBookMark>  UserJobBookMarks{ get; set; }
         public ICollection<UserJobRequest> UserJobRequests { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace MetiJob.Domain.Aggregates.IdentityAggregates
         public ICollection<WorkExperience> WorkExperiences{ get; set; }
         public ICollection<ResumeAggregates.Language> Languages{ get; set; }
         public ICollection<UserJobRequest> UserJobRequests { get; set; }
+        public ICollection<UserJobBookMark>  UserJobBookMarks{ get; set; }
 
         public void UpdatePersonalInfomations(string? phone, IranStates? state, string? address
             , bool? isMarried, int? yearOfBirth, bool? isMan, string? aboutMe,

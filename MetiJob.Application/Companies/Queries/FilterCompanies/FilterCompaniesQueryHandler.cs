@@ -22,9 +22,10 @@ namespace MetiJob.Application.Companies.Queries.FilterCompanies
             var result = new OperationResult<FilterCompaniesResponse>();
             try
             {
-                var query = _companiesRepository.GetQuery().OrderByDescending(p => p.CreatedAt).AsQueryable();
+                var query = _companiesRepository.GetQuery().OrderByDescending(p => p.LastUpdate).AsQueryable();
                 if (!string.IsNullOrEmpty(request.Filter.Name)) query = query.Where(p => p.Name.Contains(request.Filter.Name)).AsQueryable();
                 if (!string.IsNullOrEmpty(request.Filter.Location)) query = query.Where(p => p.Location.Contains(request.Filter.Location)).AsQueryable();
+                if (request.Filter.IsHot) query = query.Where(p => p.IsHot).AsQueryable();
                 switch (request.Filter.OrderBy)
                 {
                     case "top":

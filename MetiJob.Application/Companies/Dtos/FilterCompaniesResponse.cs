@@ -9,6 +9,7 @@ namespace MetiJob.Application.Companies.Dtos
         public string? Name { get; set; }
         public string? Location { get; set; }
         public string? OrderBy{ get; set; }
+        public bool IsHot { get; set; }
         public List<Domain.Aggregates.JobsAggregates.Company> Companies{ get; set; }
         #region methods
         public FilterCompaniesResponse SetCompanies(List<Domain.Aggregates.JobsAggregates.Company> companies)

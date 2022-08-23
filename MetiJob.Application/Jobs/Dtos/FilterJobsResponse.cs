@@ -15,6 +15,7 @@ namespace MetiJob.Application.Jobs.Dtos
         public int? WorkExperience { get; set; }
         public long? MinPrice { get; set; }
         public bool IsHot { get; set; }
+        public string? FromWhen { get; set; }
         public List<Domain.Aggregates.JobsAggregates.Job> Jobs { get; set; }
         #region methods
         public FilterJobsResponse SetJobs(List<Domain.Aggregates.JobsAggregates.Job> jobs)

@@ -20,6 +20,7 @@ namespace MetiJob.DataAccess
         public DbSet<Job> Jobs{ get; set; }
         public DbSet<Company> Companies{ get; set; }
         public DbSet<UserJobRequest> UserJobRequests{ get; set; }
+        public DbSet<UserJobBookMark> UserJobBookMarks{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,6 +29,8 @@ namespace MetiJob.DataAccess
             builder.Entity<EducationalRecord>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<Job>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<Company>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<UserJobRequest>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<UserJobBookMark>().HasQueryFilter(p => !p.IsRemoved);
             builder.ApplyAllConfigurations();
             base.OnModelCreating(builder);
         }

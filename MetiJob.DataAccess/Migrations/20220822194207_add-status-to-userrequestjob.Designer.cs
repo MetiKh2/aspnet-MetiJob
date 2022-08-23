@@ -4,6 +4,7 @@ using MetiJob.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetiJob.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220822194207_add-status-to-userrequestjob")]
+    partial class addstatustouserrequestjob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,39 +373,6 @@ namespace MetiJob.DataAccess.Migrations
                     b.ToTable("JobCategories");
                 });
 
-            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.UserJobBookMark", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("JobId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserJobBookMarks");
-                });
-
             modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.UserJobRequest", b =>
                 {
                     b.Property<long>("Id")
@@ -721,25 +690,6 @@ namespace MetiJob.DataAccess.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.UserJobBookMark", b =>
-                {
-                    b.HasOne("MetiJob.Domain.Aggregates.JobsAggregates.Job", "Job")
-                        .WithMany("UserJobBookMarks")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MetiJob.Domain.Aggregates.IdentityAggregates.ApplicationUser", "User")
-                        .WithMany("UserJobBookMarks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.UserJobRequest", b =>
                 {
                     b.HasOne("MetiJob.Domain.Aggregates.JobsAggregates.Job", "Job")
@@ -849,8 +799,6 @@ namespace MetiJob.DataAccess.Migrations
 
                     b.Navigation("Languages");
 
-                    b.Navigation("UserJobBookMarks");
-
                     b.Navigation("UserJobRequests");
 
                     b.Navigation("WorkExperiences");
@@ -863,8 +811,6 @@ namespace MetiJob.DataAccess.Migrations
 
             modelBuilder.Entity("MetiJob.Domain.Aggregates.JobsAggregates.Job", b =>
                 {
-                    b.Navigation("UserJobBookMarks");
-
                     b.Navigation("UserJobRequests");
                 });
 #pragma warning restore 612, 618
